@@ -8,6 +8,7 @@ This project is fork from [jquery.unveil](https://github.com/luis-almeida/unveil
 
 - Lazyload images;
 - Retina display support;
+- Very small, just 1.3 Kb (not compress); 
 
 ## Changelogs
 
