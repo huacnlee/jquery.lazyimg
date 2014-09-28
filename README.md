@@ -2,6 +2,12 @@ jquery.lazyimg
 ==============
 
 Lazyload image plugin for jQuery.
+This project is fork from [jquery.unveil](https://github.com/luis-almeida/unveil), to improve performance with huge DOMs.
+
+## Feature
+
+- Lazyload images;
+- Retina display support;
 
 ## Changelogs
 
@@ -12,7 +18,7 @@ You can see all of the release notes in here: [Release notes](https://github.com
 - Safari
 - Chrome
 - Firefox
-- IE (No test), maybe 8+
+- IE6+
 
 ## Demo
 
