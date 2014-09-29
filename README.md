@@ -8,7 +8,7 @@ This project is fork from [jquery.unveil](https://github.com/luis-almeida/unveil
 
 - Lazyload images;
 - Retina display support;
-- Only 1 scroll event binding, even you call `lazyimg()` over again and again;
+- Only 2 events binding (scroll, resize for responsive), even you call `lazyimg()` over again and again;
 - No events binding on IMG elements;
 - Very small, just 1.3 Kb (not compress); 
 - Very fast;

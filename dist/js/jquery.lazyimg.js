@@ -5,7 +5,7 @@ $ = jQuery;
 
 $.fn.extend({
   lazyimg: function(options) {
-    var $imgs, $w, attrib, defaults, ie, lazyimg, onWindowScrollEvent, retina, th;
+    var $imgs, $w, attrib, defaults, ie, lazyimg, onWindowResizeEvent, onWindowScrollEvent, retina, th;
 
     defaults = {
       threshold: 100
@@ -19,6 +19,10 @@ $.fn.extend({
     onWindowScrollEvent = function() {
       clearTimeout(window._lazyimg_delay);
       return window._lazyimg_delay = setTimeout(lazyimg, 150);
+    };
+    onWindowResizeEvent = function() {
+      clearTimeout(window._lazyimg_resize_delay);
+      return window._lazyimg_resize_delay = setTimeout(lazyimg, 1000);
     };
     $imgs = $("img.lazy");
     lazyimg = function() {
@@ -92,6 +96,8 @@ $.fn.extend({
     };
     $w.off('scroll.lazyimg');
     $w.on('scroll.lazyimg', onWindowScrollEvent);
+    $w.off('resize.lazyimg');
+    $w.on('resize.lazyimg', onWindowResizeEvent);
     return onWindowScrollEvent();
   }
 });

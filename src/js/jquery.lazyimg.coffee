@@ -13,10 +13,15 @@ $.fn.extend
     retina = window.devicePixelRatio > 1
     attrib = if retina then "data-src-retina" else "data-src"
     ie = if typeof(window.scrollY) == "number" then false else true
+    
     onWindowScrollEvent = () ->
       clearTimeout(window._lazyimg_delay)
       window._lazyimg_delay = setTimeout(lazyimg, 150);
 
+    onWindowResizeEvent = () ->
+      clearTimeout(window._lazyimg_resize_delay)
+      window._lazyimg_resize_delay = setTimeout(lazyimg, 1000);
+    
     $imgs = $("img.lazy")
     lazyimg = () ->
       console?.time? "lazyimg"
@@ -64,5 +69,8 @@ $.fn.extend
 
     $w.off('scroll.lazyimg')
     $w.on('scroll.lazyimg', onWindowScrollEvent)
+    
+    $w.off('resize.lazyimg')
+    $w.on('resize.lazyimg', onWindowResizeEvent)
 
     onWindowScrollEvent()
