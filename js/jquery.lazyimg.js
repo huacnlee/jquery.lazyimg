@@ -5,7 +5,7 @@ $ = jQuery;
 
 $.fn.extend({
   lazyimg: function(options) {
-    var $w, attrib, defaults, lazyimg, onWindowScrollEvent, retina, th;
+    var $imgs, $w, attrib, defaults, ie, lazyimg, onWindowScrollEvent, retina, th;
 
     defaults = {
       threshold: 100
@@ -15,35 +15,80 @@ $.fn.extend({
     th = options.threshold;
     retina = window.devicePixelRatio > 1;
     attrib = retina ? "data-src-retina" : "data-src";
+    ie = typeof window.scrollY === "number" ? false : true;
     onWindowScrollEvent = function() {
       clearTimeout(window._lazyimg_delay);
-      return window._lazyimg_delay = setTimeout(lazyimg, 250);
+      return window._lazyimg_delay = setTimeout(lazyimg, 150);
     };
+    $imgs = $("img.lazy");
     lazyimg = function() {
-      var $imgs, inview, wb, wt;
+      var inview, wb, wt;
 
-      $imgs = $("img.lazy");
-      wt = $w.scrollTop();
-      wb = wt + $w.height();
+      if (typeof console !== "undefined" && console !== null) {
+        if (typeof console.time === "function") {
+          console.time("lazyimg");
+        }
+      }
+      if (typeof console !== "undefined" && console !== null) {
+        if (typeof console.profile === "function") {
+          console.profile("lazyimg");
+        }
+      }
+      if (ie) {
+        wt = $w.scrollTop();
+        wb = wt + $w.height();
+      } else {
+        wt = window.scrollY;
+        wb = wt + window.innerHeight;
+      }
       inview = $imgs.filter(function() {
-        var $e, eb, et;
+        var $e, eb, eh, et;
 
         $e = $(this);
-        et = $e.offset().top;
-        eb = et + $e.height();
+        if (ie) {
+          if ($e.attr("src") === $e.attr(attrib)) {
+            return;
+          }
+          et = $e.offset().top;
+          eh = $e.data("lazyheight");
+        } else {
+          if (this.getAttribute("src") === this.getAttribute(attrib)) {
+            return;
+          }
+          et = this.offsetTop;
+          eh = this.lazyheight;
+        }
+        if (!eh) {
+          if (ie) {
+            eh = $e.height();
+            $e.data("lazyheight", eh);
+          } else {
+            eh = this.clientHeight;
+            this.lazyheight = eh;
+          }
+        }
+        eb = et + eh;
         return eb >= wt - th && et <= wb + th;
       });
-      return inview.each(function() {
+      inview.each(function() {
         var $this, source;
 
         $this = $(this);
-        source = $this.attr(attrib);
-        source = source || $this.attr("data-src");
+        source = ie ? $this.attr(attrib) : this.getAttribute(attrib);
         if (source) {
-          $this.attr("src", source);
-          return $this.removeClass("lazy");
+          if (ie) {
+            return $this.attr("src", source);
+          } else {
+            return this.setAttribute("src", source);
+          }
         }
       });
+      if (typeof console !== "undefined" && console !== null) {
+        if (typeof console.timeEnd === "function") {
+          console.timeEnd("lazyimg");
+        }
+      }
+      return typeof console !== "undefined" && console !== null ? typeof console.profileEnd === "function" ? console.profileEnd("lazyimg") : void 0 : void 0;
     };
     $w.off('scroll.lazyimg');
     $w.on('scroll.lazyimg', onWindowScrollEvent);
