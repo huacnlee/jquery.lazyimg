@@ -6,7 +6,7 @@
   <link href="http://cdn.staticfile.org/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
   <style type="text/css" media="screen">
   body { background: #eee; text-align: center; }
-  .container { text-align:left; }
+  .container { text-align:left; position: relative; }
   .photos p { margin-bottom: 20px; float: left; width: 230px; }
   .photos img { width: 200px; height: 153px; background: #FFF ; padding: 8px; }
   @media (max-width: 920px)  {
@@ -90,7 +90,7 @@
       $("body").lazyimg();
       return false;
     }
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 10; i++) {
       addElements();
     }
     

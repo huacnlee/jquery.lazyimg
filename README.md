@@ -11,7 +11,7 @@ This project is fork from [jquery.unveil](https://github.com/luis-almeida/unveil
 - Only 1 scroll event binding, even you call `lazyimg()` over again and again;
 - No events binding on IMG elements;
 - Very small, just 1.3 Kb (not compress); 
-- Very fast, in 10k elements cases, lazy load process time ~= 10ms;
+- Very fast;
 - Responsive page support.
 
 ## Changelogs

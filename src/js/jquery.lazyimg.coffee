@@ -5,7 +5,7 @@
 $ = jQuery
 $.fn.extend
   lazyimg : (options) ->
-    defaults = 
+    defaults =
       threshold: 100
     options = $.extend {}, defaults, options
     $w = $(window)
@@ -16,7 +16,7 @@ $.fn.extend
     onWindowScrollEvent = () ->
       clearTimeout(window._lazyimg_delay)
       window._lazyimg_delay = setTimeout(lazyimg, 150);
-      
+
     $imgs = $("img.lazy")
     lazyimg = () ->
       console?.time? "lazyimg"
@@ -29,7 +29,7 @@ $.fn.extend
         wt = window.scrollY
         # http://jsperf.com/jquery-height-vs-window-innerheight
         wb = wt + window.innerHeight
-        
+
       inview = $imgs.filter ->
         $e = $(this)
         if ie
@@ -39,9 +39,10 @@ $.fn.extend
         else
           if this.getAttribute("src") == this.getAttribute(attrib) then return
           # http://jsperf.com/offsettop-and-offsetleft-vs-jquery-s-offset/5
-          et = this.offsetTop
+          # can not use this.offsetTop, this can not work with parent node is position: relative
+          et = $e.offset().top
           eh = this.lazyheight
-          
+
         if not eh
           if ie
             eh = $e.height()
@@ -50,22 +51,18 @@ $.fn.extend
             eh = this.clientHeight
             this.lazyheight = eh
         eb = et + eh
-
         return eb >= wt - th && et <= wb + th
+
       inview.each ->
         $this = $(this)
         source = if ie then $this.attr(attrib) else this.getAttribute(attrib)
         if source
           if ie then $this.attr("src", source) else this.setAttribute("src", source)
-          
+
       console?.timeEnd? "lazyimg"
       console?.profileEnd? "lazyimg"
-          
+
     $w.off('scroll.lazyimg')
     $w.on('scroll.lazyimg', onWindowScrollEvent)
 
     onWindowScrollEvent()
-    
-      
-        
-    
