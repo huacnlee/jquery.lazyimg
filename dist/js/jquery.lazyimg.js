@@ -96,8 +96,10 @@ $.fn.extend({
     };
     $w.off('scroll.lazyimg');
     $w.on('scroll.lazyimg', onWindowScrollEvent);
-    $w.off('resize.lazyimg');
-    $w.on('resize.lazyimg', onWindowResizeEvent);
+    if (!ie) {
+      $w.off('resize.lazyimg');
+      $w.on('resize.lazyimg', onWindowResizeEvent);
+    }
     return onWindowScrollEvent();
   }
 });
