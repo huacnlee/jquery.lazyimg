@@ -8,7 +8,11 @@ This project is fork from [jquery.unveil](https://github.com/luis-almeida/unveil
 
 - Lazyload images;
 - Retina display support;
+- Only 1 scroll event binding, even you call `lazyimg()` over again and again;
+- No events binding on IMG elements;
 - Very small, just 1.3 Kb (not compress); 
+- Very fast, in 10k elements cases, lazy load process time ~= 10ms;
+- Responsive page support.
 
 ## Changelogs
 

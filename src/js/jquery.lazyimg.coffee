@@ -1,6 +1,6 @@
 # jquery.lazyimg
 # Lazyload image plugin for jQuery.
-# version: 0.0.1
+# version: 0.0.2
 # ==============================================
 $ = jQuery
 $.fn.extend
@@ -12,33 +12,58 @@ $.fn.extend
     th = options.threshold
     retina = window.devicePixelRatio > 1
     attrib = if retina then "data-src-retina" else "data-src"
-
+    ie = if typeof(window.scrollY) == "number" then false else true
     onWindowScrollEvent = () ->
       clearTimeout(window._lazyimg_delay)
-      window._lazyimg_delay = setTimeout(lazyimg, 250);
+      window._lazyimg_delay = setTimeout(lazyimg, 150);
       
+    $imgs = $("img.lazy")
     lazyimg = () ->
-      $imgs = $("img.lazy")
-      wt = $w.scrollTop()
-      wb = wt + $w.height()
-      
+      console?.time? "lazyimg"
+      console?.profile? "lazyimg"
+      if ie
+        wt = $w.scrollTop()
+        wb = wt + $w.height()
+      else
+        # http://jsperf.com/document-scrolltop-vs-native
+        wt = window.scrollY
+        # http://jsperf.com/jquery-height-vs-window-innerheight
+        wb = wt + window.innerHeight
+        
       inview = $imgs.filter ->
         $e = $(this)
-        et = $e.offset().top
-        eb = et + $e.height()
+        if ie
+          if $e.attr("src") == $e.attr(attrib) then return
+          et = $e.offset().top
+          eh = $e.data("lazyheight")
+        else
+          if this.getAttribute("src") == this.getAttribute(attrib) then return
+          # http://jsperf.com/offsettop-and-offsetleft-vs-jquery-s-offset/5
+          et = this.offsetTop
+          eh = this.lazyheight
+          
+        if not eh
+          if ie
+            eh = $e.height()
+            $e.data("lazyheight", eh)
+          else
+            eh = this.clientHeight
+            this.lazyheight = eh
+        eb = et + eh
 
         return eb >= wt - th && et <= wb + th
-        
       inview.each ->
         $this = $(this)
-        source = $this.attr(attrib)
-        source = source || $this.attr("data-src")
+        source = if ie then $this.attr(attrib) else this.getAttribute(attrib)
         if source
-          $this.attr("src", source)
-          $this.removeClass("lazy")
+          if ie then $this.attr("src", source) else this.setAttribute("src", source)
+          
+      console?.timeEnd? "lazyimg"
+      console?.profileEnd? "lazyimg"
           
     $w.off('scroll.lazyimg')
     $w.on('scroll.lazyimg', onWindowScrollEvent)
+
     onWindowScrollEvent()
     
       
