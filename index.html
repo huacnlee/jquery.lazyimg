@@ -6,13 +6,18 @@
   <link href="http://cdn.staticfile.org/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
   <style type="text/css" media="screen">
   body { background: #eee; text-align: center; }
-  .container { text-align:left; }
-  .photos p { position: relative; margin-bottom: 20px; float: left; width: 230px; }
+  .container { text-align:left; position: relative; }
+  .photos p { margin-bottom: 20px; float: left; width: 230px; }
   .photos img { width: 200px; height: 153px; background: #FFF ; padding: 8px; }
   @media (max-width: 920px)  {
     .container { width: 90%; margin: 0 auto; }
     .photos p { width: 130px; }
     .photos img { width: 100px; height: 76px; }
+  }
+  @media (max-width: 620px)  {
+    .container { width: 500px; margin: 0 auto; }
+    .photos p { width: 60px; margin-bottom: 10px;}
+    .photos img { width: 50px; height: 39px; padding: 0px; }
   }
   </style>
   <script src="http://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
