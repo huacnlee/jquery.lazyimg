@@ -55,7 +55,7 @@ $.fn.extend({
           if (this.getAttribute("src") === this.getAttribute(attrib)) {
             return;
           }
-          et = this.offsetTop;
+          et = $e.offset().top;
           eh = this.lazyheight;
         }
         if (!eh) {

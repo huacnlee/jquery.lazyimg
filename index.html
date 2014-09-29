@@ -7,7 +7,7 @@
   <style type="text/css" media="screen">
   body { background: #eee; text-align: center; }
   .container { text-align:left; }
-  .photos p { margin-bottom: 20px; float: left; width: 230px; }
+  .photos p { position: relative; margin-bottom: 20px; float: left; width: 230px; }
   .photos img { width: 200px; height: 153px; background: #FFF ; padding: 8px; }
   @media (max-width: 920px)  {
     .container { width: 90%; margin: 0 auto; }
@@ -90,7 +90,7 @@
       $("body").lazyimg();
       return false;
     }
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 10; i++) {
       addElements();
     }
     
