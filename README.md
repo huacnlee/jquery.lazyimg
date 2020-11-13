@@ -10,7 +10,7 @@ This project is fork from [jquery.unveil](https://github.com/luis-almeida/unveil
 - Retina display support;
 - Only 2 events binding (scroll, resize for responsive), even you call `lazyimg()` over again and again;
 - No events binding on IMG elements;
-- Very small, just 1.3 Kb (not compress); 
+- Very small, just 1.3 Kb (not compress);
 - Very fast;
 - Responsive page support.
 
@@ -27,13 +27,13 @@ You can see all of the release notes in here: [Release notes](https://github.com
 
 ## Demo
 
-You can try the [Demo app](http://huacnlee.github.io/jquery.lazyimg).
+You can try the [Demo app](https://huacnlee.github.io/jquery.lazyimg).
 
 ## Usage
 
 ```html
-<img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://foo.bar/item1.jpg" data-src-retina="http://foo.bar/item1@2x.jpg" />
-<img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://foo.bar/item2.jpg" data-src-retina="http://foo.bar/item2@2x.jpg" />
+<img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://foo.bar/item1.jpg" data-src-retina="https://foo.bar/item1@2x.jpg" />
+<img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://foo.bar/item2.jpg" data-src-retina="https://foo.bar/item2@2x.jpg" />
 <script type="text/javascript">
 $("body").lazyimg();
 </script>
@@ -44,8 +44,8 @@ $("body").lazyimg();
 ```
 $ bundle install
 $ rake watch # or use "rake build" to release
-``` 
+```
 
 ## License
 
-Apache V2 : http://choosealicense.com/licenses/apache
+Apache V2 : https://choosealicense.com/licenses/apache
